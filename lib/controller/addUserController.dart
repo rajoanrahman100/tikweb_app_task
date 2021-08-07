@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter/material.dart';
 
-class SignUpController extends GetxController{
-
+class AddUserController extends GetxController{
   Rx<String> selectedGender = 'Male'.obs;
 
   RxBool showPass=false.obs;
@@ -15,9 +14,9 @@ class SignUpController extends GetxController{
 
     if (pickedFile != null) {
       profileImagePath.value = pickedFile.path;
+      print("from add user");
     }else{
       print("No Image Selected");
     }
   }
-
 }

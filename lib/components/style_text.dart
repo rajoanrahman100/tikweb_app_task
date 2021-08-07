@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tikwebapptask/components/color_config.dart';
 
 Text textRoboto(String title, Color color,
     {double? fontSize, FontWeight? fontWeight,int? maxLine,TextDecoration? textDecoration}) {
@@ -19,6 +20,18 @@ BoxDecoration containerBoxDecoration({double? borderRadius,Color? color,List<Box
     color: color,
     boxShadow: boxShadow,
   );
+}
+
+
+showSnackBar({BuildContext? context, String? message}){
+
+  return ScaffoldMessenger.of(context!).showSnackBar(SnackBar(
+    backgroundColor: kBlackColor,
+    duration: Duration(seconds: 2),
+    content: textRoboto(message!,kWhiteColor,fontWeight: weight500,maxLine: 2),
+  )
+  );
+
 }
 
 const FontWeight weight500=FontWeight.w500;

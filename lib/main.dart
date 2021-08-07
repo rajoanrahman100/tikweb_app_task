@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tikwebapptask/screens/bottomBarItems/addUserScreen.dart';
+import 'package:tikwebapptask/screens/bottomNavBar.dart';
 import 'package:tikwebapptask/screens/landingPage.dart';
 import 'package:tikwebapptask/screens/logInPage.dart';
 import 'package:tikwebapptask/screens/signInPage.dart';
@@ -13,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SignInPage(),
+      home: BottomNavBar(),
     );
   }
 }
