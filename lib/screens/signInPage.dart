@@ -6,12 +6,21 @@ import 'package:image_picker/image_picker.dart';
 import 'package:tikwebapptask/components/color_config.dart';
 import 'package:tikwebapptask/components/style_text.dart';
 import 'package:tikwebapptask/controller/signUpController.dart';
+import 'package:tikwebapptask/screens/bottomNavBar.dart';
 import 'package:tikwebapptask/widgets/buttonWidget.dart';
 import 'package:tikwebapptask/widgets/dialog.dart';
 import 'package:tikwebapptask/widgets/textFieldWidget.dart';
 
 class SignInPage extends StatelessWidget {
+
+  static const routeName = 'signup_page';
+
   var signUpController = Get.put(SignUpController());
+
+  var nameController = TextEditingController();
+  var emailController = TextEditingController();
+  var passController = TextEditingController();
+  var phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -94,18 +103,21 @@ class SignInPage extends StatelessWidget {
                       )),
                   size30,
                   TextFieldWidget(
+                    controller: nameController,
                     hintText: "Name",
                     inputType: TextInputType.name,
                     isSuffix: false,
                   ),
                   size10,
                   TextFieldWidget(
+                    controller: emailController,
                     hintText: "Email",
                     inputType: TextInputType.emailAddress,
                     isSuffix: false,
                   ),
                   size10,
                   Obx(() => TextFieldWidget(
+                    controller: passController,
                       hintText: "Password",
                       inputType: TextInputType.emailAddress,
                       isSuffix: true,
@@ -119,6 +131,7 @@ class SignInPage extends StatelessWidget {
                       isObsecure: !signUpController.showPass.value)),
                   size10,
                   TextFieldWidget(
+                    controller: phoneController,
                     hintText: "Mobile Number",
                     inputType: TextInputType.number,
                     isSuffix: true,
@@ -139,6 +152,8 @@ class SignInPage extends StatelessWidget {
                           groupValue: signUpController.selectedGender.value,
                           onChanged: (value) {
                             signUpController.selectedGender.value = value.toString();
+                            signUpController.genderValue.value="1";
+                            print(signUpController.genderValue.value);
                             print(signUpController.selectedGender.value);
                           },
                         ),
@@ -151,6 +166,8 @@ class SignInPage extends StatelessWidget {
                           groupValue: signUpController.selectedGender.value,
                           onChanged: (value) {
                             signUpController.selectedGender.value = value.toString();
+                            signUpController.genderValue.value="2";
+                            print(signUpController.genderValue.value);
                           },
                         ),
                       )
@@ -160,7 +177,14 @@ class SignInPage extends StatelessWidget {
                   ButtonWidget(
                     size: size,
                     btnText: "SignUp",
-                    callback: () {},
+                    callback: () {
+
+                      signUpController.signUpUser(File(signUpController.profileImagePath.value),nameController.text,
+                          emailController.text, "20.029929", "90.02992",
+                          signUpController.genderValue.value, phoneController.text, passController.text, context);
+
+                      //Navigator.pushNamed(context, BottomNavBarPage.routeName);
+                    },
                   ),
                 ],
               ),
@@ -185,79 +209,4 @@ class SignInPage extends StatelessWidget {
     );
   }
 
-  Future<dynamic> pickImageDialog(BuildContext context, Size size) {
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return Dialog(
-            child: Container(
-              height: size.height / 6,
-              padding: EdgeInsets.symmetric(horizontal: 15.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  size10,
-                  textRoboto("Upload Profile Picture", kBlackColor, fontSize: 20.0, fontWeight: FontWeight.w500),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      signUpController.getProfileImage(ImageSource.camera, context);
-                      Navigator.of(context).pop();
-                    },
-                    child: Row(
-                      children: [
-                        Container(
-                          height: 35,
-                          width: 35,
-                          decoration: BoxDecoration(shape: BoxShape.circle, color: kGreyColor.withOpacity(0.2)),
-                          child: Center(
-                            child: Icon(
-                              Icons.camera,
-                              color: kBlackColor,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10.0,
-                        ),
-                        textRoboto("From Camera", kBlackColor, fontSize: 18.0, fontWeight: FontWeight.w500),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      signUpController.getProfileImage(ImageSource.gallery, context);
-                      Navigator.of(context).pop();
-                    },
-                    child: Row(
-                      children: [
-                        Container(
-                          height: 35,
-                          width: 35,
-                          decoration: BoxDecoration(shape: BoxShape.circle, color: kGreyColor.withOpacity(0.2)),
-                          child: Center(
-                            child: Icon(
-                              Icons.perm_media,
-                              color: kBlackColor,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10.0,
-                        ),
-                        textRoboto("From Gallery", kBlackColor, fontSize: 18.0, fontWeight: FontWeight.w500),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
-          );
-        });
-  }
 }

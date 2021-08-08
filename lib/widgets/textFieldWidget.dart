@@ -37,6 +37,7 @@ class TextFieldWidget extends StatelessWidget {
             borderSide: BorderSide(color: Colors.red),
             borderRadius: BorderRadius.circular(5),
           ),
+
           suffixIcon: isSuffix == true ? suffixWidget : null,
           prefixIcon: isPrefix==true?prefixWidget:null,
           disabledBorder: InputBorder.none,

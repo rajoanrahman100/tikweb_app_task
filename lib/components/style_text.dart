@@ -26,7 +26,7 @@ BoxDecoration containerBoxDecoration({double? borderRadius,Color? color,List<Box
 showSnackBar({BuildContext? context, String? message}){
 
   return ScaffoldMessenger.of(context!).showSnackBar(SnackBar(
-    backgroundColor: kBlackColor,
+    backgroundColor: kBlackColor.withOpacity(0.8),
     duration: Duration(seconds: 2),
     content: textRoboto(message!,kWhiteColor,fontWeight: weight500,maxLine: 2),
   )

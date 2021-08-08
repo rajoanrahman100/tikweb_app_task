@@ -6,7 +6,10 @@ import 'package:tikwebapptask/controller/navBarController.dart';
 import 'package:tikwebapptask/screens/bottomBarItems/profileScreen.dart';
 import 'package:tikwebapptask/screens/bottomBarItems/usersScreen.dart';
 
-class BottomNavBar extends StatelessWidget {
+class BottomNavBarPage extends StatelessWidget {
+
+  static const routeName = 'bottom_nav_page';
+
 
   var navController=Get.put(BottomNavBarController());
 

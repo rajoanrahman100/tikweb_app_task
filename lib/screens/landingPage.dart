@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tikwebapptask/components/color_config.dart';
 import 'package:tikwebapptask/components/style_text.dart';
+import 'package:tikwebapptask/screens/logInPage.dart';
+import 'package:tikwebapptask/screens/signInPage.dart';
 import 'package:tikwebapptask/widgets/buttonWidget.dart';
 
 class LandingPage extends StatelessWidget {
@@ -33,9 +35,13 @@ class LandingPage extends StatelessWidget {
                 ),
               ),
               size30,
-              ButtonWidget(size: size,btnText: "LogIn",callback: (){},),
+              ButtonWidget(size: size,btnText: "LogIn",callback: (){
+                Navigator.pushNamed(context,LogInPage.routeName);
+              },),
               size10,
-              ButtonWidget(size: size,btnColor: kWhiteColor,btnText: "SignUp",textColor: kBlackColor,callback: (){},),
+              ButtonWidget(size: size,btnColor: kWhiteColor,btnText: "SignUp",textColor: kBlackColor,callback: (){
+                Navigator.pushNamed(context,SignInPage.routeName);
+              },),
             ],
           ),
         ),

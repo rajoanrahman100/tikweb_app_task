@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tikwebapptask/components/color_config.dart';
 import 'package:tikwebapptask/components/style_text.dart';
+import 'package:tikwebapptask/controller/logInController.dart';
 import 'package:tikwebapptask/widgets/buttonWidget.dart';
 import 'package:tikwebapptask/widgets/textFieldWidget.dart';
 
 class LogInPage extends StatelessWidget {
+
+  static const routeName = 'login_page';
+
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passController = TextEditingController();
+
+  var loginController=Get.put(LogInController());
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +76,9 @@ class LogInPage extends StatelessWidget {
                       ButtonWidget(
                         size: size,
                         btnText: "LogIn",
-                        callback: () {},
+                        callback: () {
+                          loginController.logInUser(_emailController.text, _passController.text,context);
+                        },
                       ),
 
 
