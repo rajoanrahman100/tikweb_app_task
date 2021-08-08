@@ -7,10 +7,17 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:tikwebapptask/components/apis.dart';
+import 'package:tikwebapptask/components/style_text.dart';
+import 'package:tikwebapptask/controller/userDataController.dart';
+import 'package:tikwebapptask/model/ApiResponse.dart';
 import 'package:tikwebapptask/widgets/customDialog.dart';
 
 class AddUserController extends GetxController {
+
+
+
   Rx<String> selectedGender = 'Male'.obs;
+  Rx<String> genderValue="1".obs;
 
   RxBool showPass = false.obs;
 
@@ -28,9 +35,11 @@ class AddUserController extends GetxController {
   }
 
 
-  void addUserData(File? imageFile,name,email,lat,long,genderValue,phone,password,context)async{
+  Future addUserData(File? imageFile,name,email,lat,long,genderValue,phone,password,context)async{
 
     print("--------Calling------------");
+
+    var result;
 
     showDialog(
         builder: (context) => CustomLoader(),
@@ -64,11 +73,27 @@ class AddUserController extends GetxController {
     });
 
     var response = await request.send();
+    await response.stream.transform(utf8.decoder).listen((value) {
+      result = value;
+    });
 
     if(response.statusCode==200){
-      print("success");
+      Map<String,dynamic> dataMap=json.decode(result);
+
+      if(dataMap["meta"]["status"]==100){
+        Navigator.of(context).pop();
+        ApiResponse apiResponse=ApiResponse.fromJson(dataMap);
+        showSnackBar(context: context,message: apiResponse.response!.message);
+      }else{
+        Navigator.of(context).pop();
+        await Get.find<UserDatController>().fetchUser();
+        ApiResponse apiResponse=ApiResponse.fromJson(dataMap);
+        showSnackBar(context: context,message: apiResponse.response!.message);
+      }
+      /*print("success $dataMap");
       Navigator.of(context).pop();
-      log(await response.stream.bytesToString());
+      showSnackBar(context: context,message: "User Created Successfully");
+      log(await response.stream.bytesToString());*/
     }else{
       Navigator.of(context).pop();
       log(await response.stream.bytesToString());

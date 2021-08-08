@@ -22,6 +22,11 @@ class LogInController extends GetxController {
   var userPhone="".obs;
   var createdDate="".obs;
   var profileImage="".obs;
+  var userLat="".obs;
+  var userLong="".obs;
+
+  RxBool showPass=false.obs;
+
 
   Future logInUser(email, password,context) async {
 
@@ -53,6 +58,8 @@ class LogInController extends GetxController {
         userPhone.value=userData.response!.user!.phone!;
         createdDate.value=userData.response!.user!.createdAt!;
         profileImage.value=userData.response!.user!.profileImage!;
+        userLat.value=userData.response!.user!.latitude!;
+        userLong.value=userData.response!.user!.longitude!;
 
         Navigator.pushNamed(context, BottomNavBarPage.routeName);
         print("User Name ${userName.value}");

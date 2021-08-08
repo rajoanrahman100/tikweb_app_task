@@ -11,7 +11,7 @@ class UserData {
   });
 
   Meta? meta;
-  Response? response;
+  late Response? response;
 
   factory UserData.fromJson(Map<String, dynamic> json) => UserData(
     meta: Meta.fromJson(json["meta"]),
@@ -49,6 +49,7 @@ class Response {
   List<UserList>? userList;
   String? message;
 
+
   factory Response.fromJson(Map<String, dynamic> json) => Response(
     userList: List<UserList>.from(json["user_list"].map((x) => UserList.fromJson(x))),
     message: json["message"],
@@ -63,7 +64,7 @@ class Response {
 class UserList {
   UserList({
     this.id,
-    this.name,
+    this.name="",
     this.email,
     this.gender,
     this.phone,
@@ -77,7 +78,7 @@ class UserList {
   });
 
   int? id;
-  String? name;
+  String name;
   String? email;
   String? gender;
   String? phone;
@@ -119,3 +120,5 @@ class UserList {
     "updated_at": updatedAt!.toIso8601String(),
   };
 }
+
+

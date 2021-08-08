@@ -13,7 +13,7 @@ class Dialogs {
       var controller
       ) async => await showDialog(
       context: context,
-      barrierDismissible: false,
+      barrierDismissible: true,
       builder: (BuildContext context) {
         return Dialog(
           child: Container(

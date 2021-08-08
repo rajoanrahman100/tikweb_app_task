@@ -8,11 +8,12 @@ class TextFieldWidget extends StatelessWidget {
   final Widget? prefixWidget;
   final TextInputType? inputType;
   final bool? isSuffix;
+  final String? type;
    bool? isObsecure;
   bool? isPrefix;
 
   TextFieldWidget({this.hintText, this.controller, this.suffixWidget,this.prefixWidget,
-    this.inputType, this.isSuffix,this.isObsecure=false,this.isPrefix=false});
+    this.inputType, this.isSuffix,this.type,this.isObsecure=false,this.isPrefix=false});
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +22,24 @@ class TextFieldWidget extends StatelessWidget {
       cursorColor: Colors.black.withOpacity(0.4),
       keyboardType: inputType ?? TextInputType.text,
       obscureText: isObsecure??true,
+      validator: (String? value){
+        if(value==null || value.trim().length==0){
+          return "Field is required";
+        }if(type=="password"){
+          if(value.trim().length>20 || value.trim().length<8){
+            return "Password length should between 8-20 characters";
+          }
+
+        }if(type=="email"){
+          if(!RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+          r"{0,253}[a-zA-Z0-9])?(?:\"
+          r".[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*")
+              .hasMatch(value)){
+            return "Enter valid email";
+          }
+        }
+        return null;
+      },
       decoration: new InputDecoration(
           border: InputBorder.none,
           fillColor: kGreyColor.withOpacity(0.2),

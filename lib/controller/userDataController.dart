@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tikwebapptask/components/apis.dart';
@@ -7,18 +5,25 @@ import 'package:tikwebapptask/model/userDataModel.dart';
 import 'package:tikwebapptask/netWorkService/networkService.dart';
 import 'package:http/http.dart' as http;
 import 'package:tikwebapptask/widgets/customDialog.dart';
-import 'package:tikwebapptask/widgets/customLoader.dart';
 
 class UserDatController extends GetxController{
 
 
   var usersData = UserData().obs;
 
-   RxInt totalUser=0.obs;
+  RxInt totalUser=0.obs;
+  Rx<String> selectedGender = 'Male'.obs;
+  Rx<String> genderValue="1".obs;
+
+  RxBool showPass = false.obs;
+
+  var profileImagePath = "".obs;
+
 
   @override
   void onInit() {
     // TODO: implement onInit
+    print("fetch from");
     fetchUser();
   }
 
