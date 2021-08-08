@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
@@ -9,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:tikwebapptask/components/apis.dart';
 import 'package:tikwebapptask/components/storage.dart';
 import 'package:tikwebapptask/components/style_text.dart';
+import 'package:tikwebapptask/model/ApiResponse.dart';
 import 'package:tikwebapptask/widgets/customDialog.dart';
 
 class SignUpController extends GetxController{
@@ -33,6 +35,8 @@ class SignUpController extends GetxController{
   void signUpUser(File? imageFile,name,email,genderValue,phone,password,context)async{
 
     print("--------Calling------------");
+
+    var result;
 
     showDialog(
         builder: (context) => CustomLoader(),
@@ -67,11 +71,23 @@ class SignUpController extends GetxController{
 
     var response = await request.send();
 
+    await response.stream.transform(utf8.decoder).listen((value) {
+      result = value;
+    });
+
     if(response.statusCode==200){
-      print("success");
-      Navigator.of(context).pop();
-      showSnackBar(context: context,message: "Sign Up Successfully");
-      log(await response.stream.bytesToString());
+
+      Map<String,dynamic> dataMap=json.decode(result);
+      if(dataMap["meta"]["status"]==100){
+        Navigator.of(context).pop();
+        ApiResponse apiResponse=ApiResponse.fromJson(dataMap);
+        showSnackBar(context: context,message: apiResponse.response!.message);
+      }else{
+        Navigator.of(context).pop();
+        ApiResponse apiResponse=ApiResponse.fromJson(dataMap);
+        showSnackBar(context: context,message: apiResponse.response!.message);
+      }
+
     }else{
       Navigator.of(context).pop();
       log(await response.stream.bytesToString());

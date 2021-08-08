@@ -189,7 +189,7 @@ class SignInPage extends StatelessWidget {
                           btnText: "SignUp",
                           callback: () {
                             if (_formKey.currentState == null || _formKey.currentState!.validate()) {
-
+                              FocusScope.of(context).unfocus();
                               if(signUpController.profileImagePath.value.isEmpty){
                                 showSnackBar(context: context,message: "Select Photo");
                                 return;
