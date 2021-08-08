@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:get/get.dart';
 import 'package:tikwebapptask/components/color_config.dart';
+import 'package:tikwebapptask/components/storage.dart';
 import 'package:tikwebapptask/components/style_text.dart';
 import 'package:tikwebapptask/controller/logInController.dart';
 import 'package:intl/intl.dart';
@@ -109,19 +110,18 @@ class ProfileScreen extends StatelessWidget {
                   border: Border.all(color: kOrdinaryColor),
                   borderRadius: BorderRadius.circular(7.0),
                   boxShadow: [
-
                       BoxShadow(
                         color: kOrdinaryColor.withOpacity(0.1),
                         spreadRadius: 5,
                         blurRadius: 7,
                         offset: Offset(0, 3), // changes position of shadow
                       ),
-
                   ]
                 ),
                 child: FlutterMap(
                   options: MapOptions(
-                    center: LatLng(23.7136,90.4278),
+                    center: LatLng(double.parse(boxStorage.read(USER_LAT)),
+                        double.parse(boxStorage.read(USER_LONG))),
                     zoom: 13.0,
                   ),
                   layers: [
@@ -134,7 +134,8 @@ class ProfileScreen extends StatelessWidget {
                         Marker(
                           width: 80.0,
                           height: 80.0,
-                          point: LatLng(23.7136, 90.4278),
+                          point: LatLng(double.parse(boxStorage.read(USER_LAT)),
+                              double.parse(boxStorage.read(USER_LONG))),
                           builder: (ctx) =>
                               Icon(Icons.location_on,color: kBlackColor,size: 30,)
                         ),

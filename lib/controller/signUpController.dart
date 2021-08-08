@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:tikwebapptask/components/apis.dart';
+import 'package:tikwebapptask/components/storage.dart';
 import 'package:tikwebapptask/components/style_text.dart';
 import 'package:tikwebapptask/widgets/customDialog.dart';
 
@@ -29,7 +30,7 @@ class SignUpController extends GetxController{
     }
   }
 
-  void signUpUser(File? imageFile,name,email,lat,long,genderValue,phone,password,context)async{
+  void signUpUser(File? imageFile,name,email,genderValue,phone,password,context)async{
 
     print("--------Calling------------");
 
@@ -56,8 +57,8 @@ class SignUpController extends GetxController{
     request.fields.addAll({
       "name":name,
       "email":email,
-      "latitude":lat,
-      "longitude":long,
+      "latitude":boxStorage.read(USER_LAT),
+      "longitude":boxStorage.read(USER_LONG),
       "gender":genderValue,
       "phone":phone,
       "password":password,

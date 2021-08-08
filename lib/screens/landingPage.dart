@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tikwebapptask/components/color_config.dart';
 import 'package:tikwebapptask/components/style_text.dart';
+import 'package:tikwebapptask/controller/locationController.dart';
 import 'package:tikwebapptask/screens/logInPage.dart';
 import 'package:tikwebapptask/screens/signInPage.dart';
 import 'package:tikwebapptask/widgets/buttonWidget.dart';
 
 class LandingPage extends StatelessWidget {
+
+  var locationController=Get.put(LocationController());
+
   @override
   Widget build(BuildContext context) {
 

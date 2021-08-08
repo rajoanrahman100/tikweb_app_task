@@ -180,7 +180,7 @@ class SignInPage extends StatelessWidget {
                     callback: () {
 
                       signUpController.signUpUser(File(signUpController.profileImagePath.value),nameController.text,
-                          emailController.text, "20.029929", "90.02992",
+                          emailController.text,
                           signUpController.genderValue.value, phoneController.text, passController.text, context);
 
                       //Navigator.pushNamed(context, BottomNavBarPage.routeName);

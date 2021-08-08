@@ -160,7 +160,6 @@ class UserScreen extends StatelessWidget {
                                                             await userController.deleteUser(userValue.id.toString(),
                                                                 context).whenComplete((){
                                                               Navigator.of(context).pop();
-                                                              TikWebLoader.hideTikWebLoader(context);
                                                             });
                                                             await userController.fetchUser();
                                                           },

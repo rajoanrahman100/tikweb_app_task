@@ -25,7 +25,10 @@ class UserDatController extends GetxController{
 
   Future deleteUser(userID,context)async{
 
-    TikWebLoader.showLoaderAnimation(context: context);
+    showDialog(
+        builder: (context) => CustomLoader(),
+        context: context,
+        barrierDismissible: false);
 
     var response = await http.get(Uri.parse(deleteUserApi+userID),
         headers: <String, String>{
@@ -33,11 +36,11 @@ class UserDatController extends GetxController{
         });
 
     if(response.statusCode==200){
-      TikWebLoader.hideTikWebLoader(context);
+      Navigator.of(context).pop();
       print(response.body);
       print("success");
     }else{
-      TikWebLoader.hideTikWebLoader(context);
+      Navigator.of(context).pop();
       print(response.body);
     }
   }

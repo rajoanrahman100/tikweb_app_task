@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:tikwebapptask/screens/bottomBarItems/addUserScreen.dart';
 import 'package:tikwebapptask/screens/bottomBarItems/profileScreen.dart';
 import 'package:tikwebapptask/screens/bottomNavBar.dart';
@@ -8,7 +9,8 @@ import 'package:tikwebapptask/screens/signInPage.dart';
 
 import 'components/route.dart';
 
-void main() {
+void main()async {
+  await GetStorage.init();
   runApp(MyApp());
 }
 
